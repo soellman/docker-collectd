@@ -1,7 +1,7 @@
 FROM soellman/debian
 MAINTAINER Oliver Soell <oliver@soell.net>
 
-RUN apt-get install -y build-essential python-pip libcurl4-openssl-dev libyajl-dev
+RUN apt-get install -y build-essential python-pip libcurl4-openssl-dev libyajl-dev btrfs-tools
 RUN cd /opt && \
   curl http://collectd.org/files/collectd-5.4.1.tar.gz | tar zx && \
   cd collectd-5.4.1 && \
