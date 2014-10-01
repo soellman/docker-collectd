@@ -11,5 +11,5 @@ RUN cd /opt && \
 
 RUN pip install envtpl
 ADD collectd.conf.tpl /usr/local/etc/collectd.conf.tpl
-ADD collect.d /etc/collectd/collect.d
-CMD for template in /usr/local/etc/collectd.conf.tpl /etc/collectd/collect.d/*tpl ; do envtpl $template ; done && collectd -f
+ADD collectd.d /usr/local/etc/collectd.d
+CMD for template in /usr/local/etc/collectd.conf.tpl /usr/local/etc/collect.d/*.tpl ; do envtpl $template ; done && exec collectd -f
