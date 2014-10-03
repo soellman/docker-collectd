@@ -5,7 +5,7 @@ import subprocess
 import sys
 import time
 
-hostname = os.getenv("COLLECTD_HOSTNAME", subprocess.check_output(["hostname", "-f"])).strip()
+hostname = os.getenv("COLLECTD_HOSTNAME", subprocess.check_output(["/bin/hostname", "-f"])).strip()
 interval = float(os.getenv("COLLECTD_INTERVAL", 10))
 
 def convert_value(value):
