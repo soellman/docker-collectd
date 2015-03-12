@@ -22,7 +22,7 @@ def convert_value(value):
 def btrfs_filesystem_stats(fs):
     allocated = 0.0
     used = 0.0
-    btrfs = subprocess.check_output(["/sbin/btrfs", "fi", "df", fs]).split("\n")[0:-1]
+    btrfs = subprocess.check_output(["/usr/bin/btrfs", "fi", "df", fs]).split("\n")[0:-1]
     for line in btrfs:
         data = line.split(": ")[1].split(", ")
         t = data[0].split("=")[1]

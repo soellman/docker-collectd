@@ -1,20 +1,10 @@
-FROM debian:wheezy
+FROM gliderlabs/alpine:3.1
 MAINTAINER Oliver Soell <oliver@soell.net>
 
-ENV COLLECTD_VERSION 5.4.1
-
-RUN apt-get update -qq && \
-  apt-get install -y build-essential libcurl4-openssl-dev libyajl-dev curl python-pip btrfs-tools && \
-  cd /opt && \
-  curl http://collectd.org/files/collectd-$COLLECTD_VERSION.tar.gz | tar zx && \
-  cd collectd-$COLLECTD_VERSION && \
-  ./configure --prefix=/usr/local && \
-  make && \
-  make install && \
-  apt-get autoremove -y build-essential libcurl4-openssl-dev libyajl-dev
+RUN apk-install collectd collectd-rrdtool collectd-write_http py-pip btrfs-progs
 
 RUN pip install envtpl
-ADD collectd.conf.tpl /usr/local/etc/collectd.conf.tpl
-ADD collectd.d /usr/local/etc/collectd.d
+ADD collectd.conf.tpl /etc/collectd/collectd.conf.tpl
+ADD collectd.d /etc/collectd/collectd.d
 ADD btrfs-data.py /usr/local/bin/btrfs-data.py
-CMD for template in /usr/local/etc/collectd.conf.tpl /usr/local/etc/collectd.d/*.tpl ; do envtpl $template ; done && exec collectd -f
+CMD ash -c "for template in /etc/collectd/collectd.conf.tpl /etc/collectd/collectd.d/*.tpl ; do envtpl $template ; done && exec collectd -f"
