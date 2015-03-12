@@ -1,13 +1,17 @@
-FROM soellman/debian
+FROM debian:wheezy
 MAINTAINER Oliver Soell <oliver@soell.net>
 
-RUN apt-get install -y build-essential python-pip libcurl4-openssl-dev libyajl-dev btrfs-tools
-RUN cd /opt && \
-  curl http://collectd.org/files/collectd-5.4.1.tar.gz | tar zx && \
-  cd collectd-5.4.1 && \
+ENV COLLECTD_VERSION 5.4.1
+
+RUN apt-get update -qq && \
+  apt-get install -y build-essential libcurl4-openssl-dev libyajl-dev curl python-pip btrfs-tools && \
+  cd /opt && \
+  curl http://collectd.org/files/collectd-$COLLECTD_VERSION.tar.gz | tar zx && \
+  cd collectd-$COLLECTD_VERSION && \
   ./configure --prefix=/usr/local && \
   make && \
-  make install
+  make install && \
+  apt-get autoremove -y build-essential libcurl4-openssl-dev libyajl-dev
 
 RUN pip install envtpl
 ADD collectd.conf.tpl /usr/local/etc/collectd.conf.tpl
