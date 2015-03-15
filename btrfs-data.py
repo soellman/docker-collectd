@@ -30,7 +30,7 @@ def btrfs_filesystem_stats(fs):
         allocated += convert_value(t)
         u = data[1].split("=")[1]
         used += convert_value(u)
-    df = subprocess.check_output(["df", "-B %s".format(blocksize), fs]).split("\n")
+    df = subprocess.check_output(["df", "-B", str(blocksize), fs]).split("\n")
     total = float(df[1].split()[1]) * blocksize
 
     fs_name = fs[1:].replace("/","-")
