@@ -7,6 +7,7 @@ import time
 
 hostname = os.getenv("HOSTNAME", subprocess.check_output(["/bin/uname", "-n"])).strip()
 interval = float(os.getenv("COLLECTD_INTERVAL", 10))
+blocksize = pow(1024, 3)
 
 def convert_value(value):
     exp = {'K':1, 'M':2, 'G':3}
@@ -29,8 +30,8 @@ def btrfs_filesystem_stats(fs):
         allocated += convert_value(t)
         u = data[1].split("=")[1]
         used += convert_value(u)
-    df = subprocess.check_output(["df", "-BG", fs]).split("\n")
-    total = float(df[1].split()[1][0:-1]) * pow(1024, 3)
+    df = subprocess.check_output(["df", "-B %s".format(blocksize), fs]).split("\n")
+    total = float(df[1].split()[1]) * blocksize
 
     fs_name = fs[1:].replace("/","-")
     print("PUTVAL {}/exec-btrfs_{}/gauge-bytes_total interval={} N:{:.0f}".format(hostname, fs_name, interval, total))
