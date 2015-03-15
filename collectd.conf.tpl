@@ -22,4 +22,4 @@ LoadPlugin write_http
   </URL>
 </Plugin>
 
-Include "/usr/local/etc/collectd.d/*.conf"
+Include "/etc/collectd/collectd.d/*.conf"
