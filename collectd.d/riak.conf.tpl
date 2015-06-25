@@ -1,7 +1,7 @@
 LoadPlugin curl_json
 
 <Plugin curl_json>
-  <URL "http://localhost:8098/stats"> 
+  <URL "{{ RIAK_STATS_URL }}"> 
     Instance "riak"
     <Key "memory_total">
       Type "bytes"
@@ -125,3 +125,4 @@ LoadPlugin curl_json
     </Key>
   </URL>
 </Plugin>
+

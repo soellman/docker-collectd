@@ -39,6 +39,7 @@ def btrfs_filesystem_stats(fs):
     print("PUTVAL {}/exec-btrfs_{}/gauge-bytes_used interval={} N:{:.0f}".format(hostname, fs_name, interval, used))
  
 while True:
-    btrfs_filesystem_stats("/data")
+    for mount in [string.strip(s) for s in string.split(os.getenv("BTRFS_MOUNTS"), ",")]:
+        btrfs_filesystem_stats(mount)
     sys.stdout.flush()
     time.sleep(interval)
