@@ -10,5 +10,5 @@ LoadModule cpu
 LoadModule load
 LoadModule memory
 
-Include "/etc/collectd/collectd.d/*.conf"
+Include "/opt/collectd/etc/collectd.d/*.conf"
 
