@@ -11,7 +11,6 @@ RUN apt-get install -y build-essential python-pip libcurl4-openssl-dev libyajl-d
 RUN cd /opt && \
   curl -sL http://collectd.org/files/collectd-${COLLECTD_VERSION}.tar.gz | tar zx && \
   cd collectd-${COLLECTD_VERSION} && \
-  find . -name \*.c | while read file ; do sed -i 's|/proc/|/host/proc/|g' $file ; done && \
   ./configure && \
   make && \
   make install
