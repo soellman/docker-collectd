@@ -1,19 +1,21 @@
-#FROM alpine:3.2
 FROM debian:wheezy
 MAINTAINER Oliver Soell <oliver@soell.net>
 
-#RUN apk add -U collectd collectd-curl collectd-rrdtool collectd-write_http py-jinja2 btrfs-progs && rm -rf /var/cache/apk/*
-
 ENV COLLECTD_VERSION 5.4.2
 
-RUN apt-get update -y
-RUN apt-get install -y build-essential python-pip libcurl4-openssl-dev libyajl-dev btrfs-tools curl python-jinja2
-RUN cd /opt && \
-  curl -sL http://collectd.org/files/collectd-${COLLECTD_VERSION}.tar.gz | tar zx && \
-  cd collectd-${COLLECTD_VERSION} && \
-  ./configure && \
-  make && \
-  make install
+RUN apt-get update -y && \
+    apt-get install -y build-essential libcurl4-openssl-dev libyajl-dev btrfs-tools curl python-jinja2 && \
+    cd /opt && \
+    curl -sL http://collectd.org/files/collectd-${COLLECTD_VERSION}.tar.gz | tar zx && \
+    cd collectd-${COLLECTD_VERSION} && \
+    ./configure --sysconfdir=/etc --prefix=/usr && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf collectd-${COLLECTD_VERSION} && \
+    apt-get remove -y build-essential libcurl4-openssl-dev libyajl-dev && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists
 
 
 # Override required!
@@ -32,10 +34,11 @@ ENV HOSTNAME default
 # ENV LIBRATO_EMAIL
 # ENV LIBRATO_TOKEN
 
-ENV CONFDIR /opt/collectd/etc
+ADD collectd.conf.tpl /etc/collectd.conf.tpl
+ADD collectd.d /etc/collectd.d
+ADD collectd-render.py /usr/local/bin/collectd-render.py
+ADD df-btrfs.py /usr/local/bin/df-btrfs.py
+ADD docker-start.sh /docker-start.sh
 
-ADD . ${CONFDIR}
-
-ENTRYPOINT ["/opt/collectd/etc/docker-start.sh"]
-#CMD ["/usr/sbin/collectd", "-f"]
-CMD ["/opt/collectd/sbin/collectd", "-f"]
+ENTRYPOINT ["/docker-start.sh"]
+CMD ["/usr/sbin/collectd", "-f"]

@@ -6,9 +6,9 @@ Timeout 2
 ReadThreads 5
 WriteThreads 5
 
-LoadModule cpu
-LoadModule load
-LoadModule memory
+LoadPlugin cpu
+LoadPlugin load
+LoadPlugin memory
 
-Include "/opt/collectd/etc/collectd.d/*.conf"
+Include "/etc/collectd.d/*.conf"
 

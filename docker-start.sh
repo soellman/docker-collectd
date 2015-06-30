@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd /opt/collectd/etc
-./render.py && exec "$@"
+cd /etc
+/usr/local/bin/collectd-render.py && exec "$@"
