@@ -15,6 +15,8 @@ templates = {
     # builtin
     "df.conf":              ["DF_MOUNTS"],
     "disk.conf":            ["DISK_DISKS"],
+    "processes.conf":       ["PROCESSES_PROCESSES"],
+    "tcpconns.conf":        ["TCPCONNS_LOCALPORTS"],
 
     # custom
     "df-btrfs.conf":        ["BTRFS_MOUNTS"],
