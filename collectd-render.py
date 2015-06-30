@@ -23,7 +23,7 @@ templates = {
     "librato.conf":         ["LIBRATO_EMAIL", "LIBRATO_TOKEN"],
     "riak.conf":            ["RIAK_STATS_URL"]
 }
-multi = ["DF_MOUNTS", "DISK_DISKS", "BTRFS_MOUNTS"]
+multi = ["DF_MOUNTS", "DISK_DISKS", "PROCESSES_PROCESSES", "TCPCONNS_LOCALPORTS", "BTRFS_MOUNTS"]
 
 
 def list_module_templates(dir):
