@@ -41,4 +41,4 @@ ADD df-btrfs.py /usr/local/bin/df-btrfs.py
 ADD docker-start.sh /docker-start.sh
 
 ENTRYPOINT ["/docker-start.sh"]
-CMD ["/usr/sbin/collectd", "-f"]
+CMD ["collectd", "-f"]
