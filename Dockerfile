@@ -1,7 +1,7 @@
 FROM debian:wheezy
 MAINTAINER Oliver Soell <oliver@soell.net>
 
-ENV COLLECTD_VERSION 5.4.2
+ENV COLLECTD_VERSION 5.5.0
 
 RUN apt-get update -y && \
     apt-get install -y build-essential libcurl4-openssl-dev libyajl-dev btrfs-tools curl python-jinja2 && \
