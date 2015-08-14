@@ -6,6 +6,6 @@ LoadPlugin write_http
     User "{{ LIBRATO_EMAIL }}"
     Password "{{ LIBRATO_TOKEN }}"
     Format "JSON"
-  </URL>
+  </Node>
 </Plugin>
 
