@@ -13,7 +13,7 @@ RUN apt-get update -y && \
     make install && \
     cd .. && \
     rm -rf collectd-${COLLECTD_VERSION} && \
-    apt-get remove -y build-essential libcurl4-openssl-dev libyajl-dev && \
+    apt-get remove -y --purge build-essential libcurl4-openssl-dev && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists
 
